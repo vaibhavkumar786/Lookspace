@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+{% extends 'spaceapp/base.html' %}
+    {% block content %}
+
+
+
+    <form action="" method="PUT">
+
+        <div class="form-group">
+        <label for="space_type">Space Type: </label>
+        <input id="space_type" type="text" name="space_type" value="{{ all_data.space_type }}">
+        </div>
+        <div class="form-group">
+            <label for="seater">Seater </label>
+            <input id="seater" type="text" name="seater" value="{{ all_data.seater }}">
+        </div>
+        <div class="form-group">
+                <label for="total_quantity">Total Quantity: </label>
+                <input id="total_quantity" type="text" name="total_quantity" value="{{ all_data.total_quantity }}">
+        </div>
+        <div class="form-group">
+                <label for="time">Time: </label>
+                <input id="time" type="text" name="time" value="{{ all_data.time }}">
+        </div>
+        <div class="form-group">
+                <label for="price">Price: </label>
+                <input id="price" type="text" name="price" value="{{ all_data.price }}">
+        </div>
+        <input type="submit" value="SUBMIT">
+    </form>
+
+    {% endblock %}
+</body>
+</html>

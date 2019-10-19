@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+    {% extends 'spaceapp/base.html' %}
+
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="space_type"> Choose Space Type  </label>
+                <select name="space_type" id="space_type" required>
+                    <option>INDIVIDUAL</option>
+                    <option>CABIN</option>
+                    <option>CONFERENCE HALL</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="seater">Total Seats in Space </label>
+                <input type="text" class="form-control form-control-sm" name="seater" id="seater" placeholder="Enter how many seats are in space" required>
+            </div>
+            <div class="form-group">
+                <label for="total_quantity"> Total Quantity </label>
+                <input type="text" class="form-control form-control-sm" name="total_quantity" id="total_quantity" placeholder="Enter Quantity Of Space" required>
+            </div>
+            <div class="form-group">
+                <label for="time"> Time </label>
+                <input type="time" class="form-control form-control-sm" name="time" id="time" placeholder="Enter Time in  hrs" required>
+            </div>
+            <div class="form-group">
+                <label for="price"> Price Per Quantity </label>
+                <input type="text" class="form-control form-control-sm" name="price" id="price" placeholder="Enter Price for per space" required>
+            </div>
+            <div class="form-group">
+             <button  type="submit">Submit</button>
+            </div>
+    </form>
+    {% endblock %}
+    </body>
+</html>

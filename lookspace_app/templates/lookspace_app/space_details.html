@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+
+            </style>
+    </head>
+    <body>
+    {% extends 'spaceapp/base.html' %}
+    {% block content %}
+    <table>
+    <tr>
+        <th>Space Type</th>
+        <th>Seater</th>
+        <th>Total Quantity</th>
+        <th>Time</th>
+        <th>Price Per Qty</th>
+        <th></th>
+    </tr>
+        {% for data in all_data %}
+                <tr>
+                    <td>{{data.space_type}}</td>
+                    <td>{{data.seater}}</td>
+                    <td>{{data.total_quantity}}</td>
+                    <td>{{data.time}}</td>
+                    <td>{{data.price}}</td>
+                    <td><a href="edit/{{data.id}}"><button>EDIT</button></a></td>
+                </tr>
+
+        {% endfor %}
+    </table>
+
+    {% endblock %}
+    </body>
+</html>
