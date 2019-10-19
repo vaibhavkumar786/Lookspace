@@ -128,17 +128,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'lookspace_app.User'
-
 CRISPY_TEMPLATE_PACK ='bootstrap4'
-
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'statics'),
-]
-
-
 LOGOUT_URL = 'logout'
 
 LOGIN_REDIRECT_URL = 'home'
 
-LOGOUT_REDIRECT_URL = 'home'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
