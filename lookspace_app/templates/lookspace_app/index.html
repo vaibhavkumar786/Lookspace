@@ -1,15 +1,189 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-</head>
-<body>
-{% extends 'lookspace_app/base.html' %}
-    INdex Page
-</body>
-</html>
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block content %}
+  <div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="mask rgba-gradient align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 white-text text-center text-md-left mt-xl-5 mb-5 wow fadeInLeft" data-wow-delay="0.3s">
+            <h1 class="h1-responsive font-weight-bold mt-sm-5">Let's Join us!</h1>
+            <hr class="hr-light">
+            <h4 class="mb-4">Create, Connect and Grow Your Business with Redifining Office Space</h4>
+              <div class="box-3">
+                <div>
+                  <a class = "btn btn-three" href="/user_signin">Customer</a>
+                </div>
+                <div>
+                    <a class = "btn btn-three" href="/partner_signin">Partner</a>
+                </div>
+              </div>
+          </div>
+          <div class="col-md-6 col-xl-5 mt-xl-5 wow fadeInRight" data-wow-delay="0.3s">
+            <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png" alt="" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class = "container">
+    <div>
+        <h2 class="container-title">Our Amenities</h2>
+    </div>
+<div class = "amenities">
+  <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover" style="width: 30%; height:20%; overflow: hidden; border-radius: 2px;">
+      <img src="static/lookspace_app/images/amenities1.jpg" alt="Man with backpack"
+          class="d-block w-full">
+    <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1 amenities-title">
+      Modern Design
+    </h1>
+  </div>
+  <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover" style="width: 30%; height:20%; overflow: hidden; border-radius: 2px;">
+      <img src="static/lookspace_app/images/amenities2.jpg" alt="Man with backpack"
+          class="d-block w-full">
+    <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1 amenities-title">
+      Group Events
+    </h1>
+  </div>
+  <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover" style="width: 30%; height:20%; overflow: hidden; border-radius: 2px;">
+      <img src="static/lookspace_app/images/amenities3.jpg" alt="Man with backpack"
+          class="d-block w-full">
+    <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1 amenities-title">
+      Fast Internet
+    </h1>
+  </div>
+  <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover" style="width: 30%; height:20%; overflow: hidden; border-radius: 2px;">
+      <img src="static/lookspace_app/images/amenities4.jpg" alt="Man with backpack"
+          class="d-block w-full">
+    <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1 amenities-title">
+      Free parking
+    </h1>
+  </div>
+  <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover" style="width: 30%; height:20%; overflow: hidden; border-radius: 2px;">
+      <img src="static/lookspace_app/images/amenities5.jpg" alt="Man with backpack"
+          class="d-block w-full">
+    <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1 amenities-title">
+      Conference Room
+    </h1>
+  </div>
+  <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover" style="width: 30%; height:20%; overflow: hidden; border-radius: 2px;">
+      <img src="static/lookspace_app/images/amenities6.jpg" alt="Man with backpack"
+          class="d-block w-full">
+    <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1 amenities-title">
+      Coffee Shop
+    </h1>
+  </div>
+</div>
+</div>
+<!--container amenities End-->
+<main class="grid">
+    <!-- <div>
+        <h2 class="container-title">BOOK TODAY</h2>
+    </div> -->
+    <article class = "left-article">
+      <img class = "left-side-image" src="static/lookspace_app/images/amenities7.jpg" alt="Sample photo">
+      <div class="text">
+        <h3 class = "centered">A Hospitality Inspired Co-Working Space. </h3>
+          <div class="box-2">
+              <div>
+                <a class = "btn btn-two" href="/user_signin">Schedule A Visit</a>
+              </div>
+          </div>
+      </div>
+    </article>
+    <article class = "right-top-article" >
+      <img class ="right-side-image" src="static/lookspace_app/images/amenities9.jpg" alt="Sample photo">
+      <div class="text">
+        <h3 class="centered">Private Office</h3>
+        <div class="box-2">
+            <div>
+              <a class = "btn btn-two" href="/user_signin">Book A Tour</a>
+            </div>
+        </div>
+      </div>
+    </article>
+    <article class = "right-bottom-article">
+      <img class ="right-side-image" src="static/lookspace_app/images/amenities8.jpg" alt="Sample photo">
+      <div class="text">
+        <h3 class="centered">Conference Room</h3>
+        <div class="box-2">
+            <div>
+              <a class = "btn btn-two" href="/user_signin">Book A Tour</a>
+            </div>
+        </div>
+      </div>
+      </div>
+    </article>
+</main>
+<!-- End Tour -->
+<div class="xyz">
+    <h2 class="offer-title">What We Offer</h2>
+</div>
+<main class="offer-grid">
+  <div></div>
+  <article class = "offer-article">
+    <img class ="offer-image" src="static/lookspace_app/images/amenities10.jpg" alt="Sample photo">
+    <div class="offer-text">
+      <h3 class="offer-centered">Conference Room</h3>
+      <div class = "about-title">
+        <p>All conference rooms are modern, well equipped and perfectly illuminated.</p>
+      </div>
+      <div class="box-2">
+          <div>
+            <a class = "btn btn-two" href="/user_signin">Book</a>
+          </div>
+      </div>
+    </div>
+  </article>
+  <article class = "offer-article" >
+      <img class ="offer-image" src="static/lookspace_app/images/amenities11.jpg" alt="Sample photo">
+      <div class="offer-text">
+        <h3 class="offer-centered">Private Office</h3>
+        <div class = "about-title">
+          <p>Our private offices are comfortable and you will notice productivity growing.</p>
+        </div>
+        <div class="box-2">
+          <div>
+            <a class = "btn btn-two" href="/user_signin">Book</a>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class = "offer-article">
+      <img class ="offer-image" src="static/lookspace_app/images/amenities12.jpg" alt="Sample photo">
+      <div class="offer-text">
+        <h3 class="offer-centered">Dedicated Desk</h3>
+        <div class = "about-title">
+          <p>You will have your own work space with all the necessary equipment at a low price.</p>
+        </div>
+        <div class="box-2">
+            <div>
+              <a class = "btn btn-two" href="/user_signin">Book</a>
+            </div>
+        </div>
+      </div>
+    </article>
+    <div></div>
+</main>
+<!-- Card -->
+<div class="xyz">
+    <h2 class="team-title">Our Team</h2>
+</div>
+<main class="developer-team">
+  <div></div>
+  <article class = "team-article">
+    <img class ="team-image" src="static/lookspace_app/images/amenities10.jpg" alt="Sample photo">
+    <div class="team-text">
+      <h3 class="offer-centered">Vaibhav Kumar</h3>
+    </div>
+  </article>
+  <article class = "team-article" >
+      <img class ="team-image" src="static/lookspace_app/images/amenities11.jpg" alt="Sample photo">
+      <div class="team-text">
+        <h2 class="offer-centered">Shashi ranjan</h2>
+      </div>
+  </article>
+</main>
+{% endblock content %}
+
+
