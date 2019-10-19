@@ -26,3 +26,11 @@ class CustomerSignUpForm(UserCreationForm):
         user.is_customer = True
         user.save()
         return user
+
+
+class SpaceDetailsForm(ModelForm):
+
+    class Meta:
+        model = SpaceDetails
+        fields = ('space_type', 'seater', 'total_quantity','time', 'price')
+

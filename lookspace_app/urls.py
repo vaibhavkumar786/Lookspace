@@ -13,12 +13,12 @@ urlpatterns = [
 
     path('customers/', include(([
         path('', views.index, name='quiz_list'),
-    ], 'spaceapp'), namespace='customers')),
+    ], 'lookspace_app'), namespace='customers')),
 
     path('partners/', include(([
         path('', views.space_details_subsriptions, name='quiz_change_list'),
         path('details', views.all_space_details, name='space_details'),
          path('edit/<int:id>', views.edit_space_details, name='edit_details'),
-    ], 'spaceapp'), namespace='partners')),
+    ], 'lookspace_app'), namespace='partners')),
 
 ]
