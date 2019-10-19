@@ -64,3 +64,26 @@ class CustomerSignUpView(CreateView):
         print("Hello4")
         return redirect('customers:quiz_list')
 
+def space_details_subsriptions(request):
+    if request.method == "POST":
+
+        space = SpaceDetails(user = request.user, space_type = request.POST.get("space_type"), seater = request.POST.get("seater"), total_quantity = request.POST.get("total_quantity"), time = request.POST.get("time"), price = request.POST.get("price"))
+        space.save()
+
+
+    return render(request, 'lookspace_app/register_space_details.html', { })
+
+@login_required
+def all_space_details(request):
+    current_user = request.user
+    print("current ================", current_user.id)
+    all_data = SpaceDetails.objects.filter(user=current_user.id)
+
+    return render(request, 'lookspace_app/space_details.html', {'all_data':all_data} )
+
+@login_required
+def edit_space_details(request, id):
+    all_data = SpaceDetails.objects.get(id=id)
+    all_data.save()
+
+    return render(request, 'lookspace_app/edit_details.html', {'all_data':all_data} )
