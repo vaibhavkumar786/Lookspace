@@ -14,13 +14,14 @@ urlpatterns = [
         path('', views.all_unique_space, name='quiz_list'),
         path('booking/<int:id>', views.all_available_spaces, name='booking'),
         path('availability/<int:id>', views.check_availability_spaces, name='availability'),
+        path('mybookings', views.all_user_booking_details, name='my_bookings'),
 
     ], 'lookspace_app'), namespace='customers')),
 
     path('partners/', include(([
         path('', views.space_details_subsriptions, name='quiz_change_list'),
         path('details', views.all_space_details, name='space_details'),
-         path('edit/<int:id>', views.edit_space_details, name='edit_details'),
+        path('edit/<int:id>', views.edit_space_details, name='edit_details'),
     ], 'lookspace_app'), namespace='partners')),
 
     path('', views.index, name = "index"),

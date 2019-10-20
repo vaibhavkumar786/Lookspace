@@ -115,8 +115,13 @@ def all_available_spaces(request, id):
     if request.method == "POST":
         book_space = BookedSeats(space=all_data ,user = request.user, start_date = request.POST.get("start_date"), end_date = request.POST.get("end_date"), start_time = request.POST.get("start_time"), end_time = request.POST.get("end_time"))
         book_space.save()
-
     return render(request, 'lookspace_app/book_space.html', {'all_data':all_data} )
+
+@login_required
+def all_user_booking_details(request):
+    all_data = BookedSeats.objects.filter(user = request.user)
+    return render(request, 'lookspace_app/my_booking_details.html', {'all_data':all_data} )
+
 
 @login_required
 def check_availability_spaces(request, id):
@@ -158,9 +163,7 @@ def check_availability_spaces(request, id):
         b2 = date(int(y2), int(m2), int(d2))
 
         if int(y2) == int(y1) and int(y3) == int(y4):
-
             if int(m2) == int(m1) and int(m3) == int(m4):
-
                 if int(d2) == int(d1) and int(d3) == int(d4):
                     check = True
                 elif (d1 >= d2 and d3 <= d2) or (d1 >= d4 and d3 <= d2) or (d2 >= d1 and d4 <= d1) or (d2 >= d3 and d4 <= d3) :
@@ -175,6 +178,9 @@ def check_availability_spaces(request, id):
             check = False
         else:
             check = True
+
+        if check == True:
+            break
 
     if check == False:
         comment = "Sorry, Please choose another date and time"
