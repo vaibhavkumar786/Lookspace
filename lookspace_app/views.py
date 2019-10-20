@@ -20,16 +20,20 @@ class SignUpView(TemplateView):
     template_name = 'lookspace_app/signup.html'
 
 
+# def home(request):
+#     if request.user.is_authenticated:
+#         if request.user.is_partner:
+#             return redirect('partners:quiz_change_list')
+#         else:
+#             return redirect('customers:quiz_list')
+#     return render(request, 'lookspace_app/home.html')
 
-def home(request):
+def index(request):
     if request.user.is_authenticated:
         if request.user.is_partner:
             return redirect('partners:quiz_change_list')
         else:
             return redirect('customers:quiz_list')
-    return render(request, 'lookspace_app/home.html')
-
-def index(request):
     return render(request, 'lookspace_app/html/index.html')
 
 def user_signup(request):
@@ -45,12 +49,10 @@ def partner_signin(request):
     return render(request, 'lookspace_app/html/partner_signin.html')
 
 
-
-
 class PartnerSignUpView(CreateView):
     model = User
     form_class = PartnerSignUpForm
-    template_name = 'lookspace_app/signup_form.html'
+    template_name = 'lookspace_app/html/user_signup.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'partner'
@@ -67,7 +69,7 @@ class PartnerSignUpView(CreateView):
 class CustomerSignUpView(CreateView):
     model = User
     form_class = CustomerSignUpForm
-    template_name = 'lookspace_app/signup_form.html'
+    template_name = 'lookspace_app/html/user_signup.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'customer'

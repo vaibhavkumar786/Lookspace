@@ -11,7 +11,7 @@ urlpatterns = [
     # path('', views.home_page, name = "home_page"),
 
     path('customers/', include(([
-        path('', views.index, name='quiz_list'),
+        path('', views.space_details_subsriptions, name='quiz_list'),
     ], 'lookspace_app'), namespace='customers')),
 
     path('partners/', include(([

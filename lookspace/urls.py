@@ -28,4 +28,7 @@ urlpatterns = [
     path('accounts/signup/partner/', PartnerSignUpView.as_view(), name='partner_signup'),
 
 
+
+
+
 ]
