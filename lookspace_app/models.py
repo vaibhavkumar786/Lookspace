@@ -24,3 +24,12 @@ class SpaceDetails(models.Model):
 
     def __str__(self):
         return self.space_type
+
+class BookedSeats(models.Model):
+    space = models.ForeignKey(SpaceDetails, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(default= timezone.now)
+    start_time = models.TimeField(default=timezone.now)
+    end_time = models.TimeField(default=timezone.now)
+

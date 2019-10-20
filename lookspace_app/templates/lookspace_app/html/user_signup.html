@@ -15,12 +15,12 @@
         <div class="container">
             <div class="signup-content">
                 <div class="signup-form">
-                    <h5 class="form-title">Sign up as a {{ user_type }}</h5>
+                    <h3 class="form-title">Sign up as a {{ user_type }}</h5>
 
                     <form method="POST" class="register-form" id="register-form">
                             {% csrf_token %}
                         <div class="form-group">
-                            <label for="name"><i class="fa fa-user"  id = "icon"></i>
+                            <label for="username"><i class="fa fa-user"  id = "icon"></i>
                             </label>
                             <input type="text" placeholder="username" name="username" required="" id="id_username" class="textinput textInput form-control" maxlength="150" autofocus="" />
                         </div>
@@ -30,11 +30,11 @@
                         </div>
                         <div class="form-group">
                             <label for="pass"><i class="fa fa-lock" id = "icon1"></i></label>
-                            <input type="password" name="password1" required="" id="id_password1" class="textinput textInput form-control" />
+                            <input type="password" name="password1" placeholder="password" required="" id="id_password1" class="textinput textInput form-control" />
                         </div>
                         <div class="form-group">
                             <label for="re-pass"><i class="fa fa-lock" id = 'icon1'></i></label>
-                            <input type="password" name="password2" required="" id="id_password2" class="textinput textInput form-control" />
+                            <input type="password" name="password2" placeholder="password" required="" id="id_password2" class="textinput textInput form-control" />
                         </div>
 
                         <div class="form-group form-button">

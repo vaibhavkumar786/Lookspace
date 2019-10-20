@@ -7,7 +7,7 @@ from django.views.generic import CreateView
 from django.views.generic import TemplateView
 from .forms import PartnerSignUpForm, CustomerSignUpForm , SpaceDetailsForm
 from django.contrib.auth.decorators import login_required
-from .models import SpaceDetails
+from .models import SpaceDetails , BookedSeats
 # Create your views here..
 
 def home_page(request):
@@ -101,3 +101,20 @@ def edit_space_details(request, id):
     all_data = SpaceDetails.objects.get(id=id)
     all_data.save()
     return render(request, 'lookspace_app/edit_details.html', {'all_data':all_data} )
+
+@login_required
+def all_unique_space(request):
+    all_data = SpaceDetails.objects.all()
+    return render(request, 'lookspace_app/unique_space.html', {'all_data':all_data})
+
+@login_required
+def all_available_spaces(request, id):
+    all_data = SpaceDetails.objects.get(id=id)
+    if request.method == "POST":
+        book_space = BookedSeats(space=all_data ,user = request.user, start_date = request.POST.get("start_date"), end_date = request.POST.get("end_date"), start_time = request.POST.get("start_time"), end_time = request.POST.get("end_time"))
+        book_space.save()
+
+    return render(request, 'lookspace_app/book_space.html', {'all_data':all_data} )
+
+
+

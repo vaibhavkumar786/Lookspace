@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 80%;
+              margin-left: 10%;
+            }
+
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+
+            </style>
+    </head>
+    <body>
+    {% extends 'lookspace_app/html/base.html' %}
+    {% block content %}
+    <div style="margin-left: 40%;">
+        <h3>All Spaces</h3>
+    </div>
+
+    <table>
+    <tr>
+        <th>Space Type</th>
+        <th>Seater</th>
+
+        <th>Time</th>
+        <th>Price Per Qty</th>
+    </tr>
+        {% for data in all_data %}
+                <tr>
+                    <td>{{data.space_type}}</td>
+                    <td>{{data.seater}}</td>
+                    <td>{{data.time}}</td>
+                    <td>{{data.price}}</td>
+                </tr>
+
+        {% endfor %}
+    </table>
+
+    <div class="available_spaces" >
+        <h3 style="margin-left: 40%;">Available Spaces</h3>
+        <table>
+            <tr>
+                <th>Space Type</th>
+                <th>Seater</th>
+                <th>Time</th>
+                <th>Price Per Qty</th>
+                <th></th>
+                <th></th>
+            </tr>
+                {% for data in all_data %}
+                        <tr>
+                            <td>{{data.space_type}}</td>
+                            <td>{{data.seater}}</td>
+                            <td>{{data.time}}</td>
+                            <td>{{data.price}}</td>
+                            <td><a href="availability/{{data.id}}"><button>Check Availability</button></a></td>
+                            <td><a href="booking/{{data.id}}"><button>BOOK NOW</button></a></td>
+                        </tr>
+
+                {% endfor %}
+            </table>
+    </div>
+
+    {% endblock %}
+    </body>
+</html>

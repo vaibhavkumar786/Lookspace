@@ -11,7 +11,10 @@ urlpatterns = [
     # path('', views.home_page, name = "home_page"),
 
     path('customers/', include(([
-        path('', views.space_details_subsriptions, name='quiz_list'),
+        path('', views.all_unique_space, name='quiz_list'),
+        path('booking/<int:id>', views.all_available_spaces, name='quiz_list'),
+        path('availability/<int:id>', views.all_available_spaces, name='quiz_list'),
+
     ], 'lookspace_app'), namespace='customers')),
 
     path('partners/', include(([
