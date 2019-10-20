@@ -131,31 +131,57 @@ def check_availability_spaces(request, id):
     first_time = str(first_time).split('-')
     second_time = str(second_time).split('-')
 
+    if first_date == ['None']:
+        date_today = str(date.today()).split('-')
+        first_date = date_today
+        second_date = date_today
+        first_time = date_today
+        second_time = date_today
+
+    print(first_date)
+
+    comment = ""
+    check = False
     for dates in booked_data:
         st_date= str(dates.start_date).split('-')
         en_date = str(dates.end_date).split('-')
         st_time = str(dates.start_time).split('-')
         en_time = str(dates.end_time).split('-')
 
-        # st_date = str(st_date.datetime.now().date())
-        print("dates-------=========",st_date)
+        y1, m1, d1 = st_date
+        y2, m2, d2 = first_date
 
-        # y1, m1, d1 = st_date
-        # print(first_date)
-        # y2, m2, d2 = first_date
-        # print(y2,m2,d2)
+        y3, m3, d3 = en_date
+        y4, m4, d4 = second_date
+        print(st_date,en_date,first_date,second_date)
+        b1 = date(int(y1), int(m1), int(d1))
+        b2 = date(int(y2), int(m2), int(d2))
 
-        # b1 = date(y1, m1, d1)
-        # b2 = date(y2, m2, d2)
+        if int(y2) == int(y1) and int(y3) == int(y4):
 
-        # if b1 == b2:
-        #     print("equal")
-        # elif(b1 > b2):
-        #     print("second person")
-        # else:
-        #     print("first")
+            if int(m2) == int(m1) and int(m3) == int(m4):
 
-    return render(request, 'lookspace_app/availabilities.html', {'booked_data':booked_data} )
+                if int(d2) == int(d1) and int(d3) == int(d4):
+                    check = True
+                elif (d1 >= d2 and d3 <= d2) or (d1 >= d4 and d3 <= d2) or (d2 >= d1 and d4 <= d1) or (d2 >= d3 and d4 <= d3) :
+                    check = False
+                else:
+                    check = True
+            elif (m1 >= m2 and m3 <= m2) or (m1 >= m4 and m3 <= m2) or (m2 >= m1 and m4 <= m1) or (m2 >= m3 and m4 <= m3):
+                check = False
+            else:
+                check= True
+        elif (y1 >= y2 and y3 <= y2) or (y1 >= y4 and y3 <= y2) or (y2 >= y1 and y4 <= y1) or (y2 >= y3 and y4 <= y3):
+            check = False
+        else:
+            check = True
+
+    if check == False:
+        comment = "Sorry, Please choose another date and time"
+    else:
+        comment = "Your date is available"
+
+    return render(request, 'lookspace_app/availabilities.html', {'booked_data':booked_data, 'comment':comment} )
 
 
 
