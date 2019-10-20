@@ -8,6 +8,8 @@ from django.views.generic import TemplateView
 from .forms import PartnerSignUpForm, CustomerSignUpForm , SpaceDetailsForm
 from django.contrib.auth.decorators import login_required
 from .models import SpaceDetails , BookedSeats
+from datetime import *
+
 # Create your views here..
 
 def home_page(request):
@@ -115,6 +117,45 @@ def all_available_spaces(request, id):
         book_space.save()
 
     return render(request, 'lookspace_app/book_space.html', {'all_data':all_data} )
+
+@login_required
+def check_availability_spaces(request, id):
+    booked_data = BookedSeats.objects.filter(space__id = id)
+    first_date=request.GET.get("start_date")
+    second_date=request.GET.get("end_date")
+    first_time=request.GET.get("start_date")
+    second_time=request.GET.get("end_date")
+
+    first_date = str(first_date).split('-')
+    second_date = str(second_date).split('-')
+    first_time = str(first_time).split('-')
+    second_time = str(second_time).split('-')
+
+    for dates in booked_data:
+        st_date= str(dates.start_date).split('-')
+        en_date = str(dates.end_date).split('-')
+        st_time = str(dates.start_time).split('-')
+        en_time = str(dates.end_time).split('-')
+
+        # st_date = str(st_date.datetime.now().date())
+        print("dates-------=========",st_date)
+
+        # y1, m1, d1 = st_date
+        # print(first_date)
+        # y2, m2, d2 = first_date
+        # print(y2,m2,d2)
+
+        # b1 = date(y1, m1, d1)
+        # b2 = date(y2, m2, d2)
+
+        # if b1 == b2:
+        #     print("equal")
+        # elif(b1 > b2):
+        #     print("second person")
+        # else:
+        #     print("first")
+
+    return render(request, 'lookspace_app/availabilities.html', {'booked_data':booked_data} )
 
 
 

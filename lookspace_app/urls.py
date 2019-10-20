@@ -12,8 +12,8 @@ urlpatterns = [
 
     path('customers/', include(([
         path('', views.all_unique_space, name='quiz_list'),
-        path('booking/<int:id>', views.all_available_spaces, name='quiz_list'),
-        path('availability/<int:id>', views.all_available_spaces, name='quiz_list'),
+        path('booking/<int:id>', views.all_available_spaces, name='booking'),
+        path('availability/<int:id>', views.check_availability_spaces, name='availability'),
 
     ], 'lookspace_app'), namespace='customers')),
 
