@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from phone_field import PhoneField
 
 # Create your models here.
 class User(AbstractUser):
@@ -32,4 +33,14 @@ class BookedSeats(models.Model):
     end_date = models.DateField(default= timezone.now)
     start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(default=timezone.now)
+
+class ScheduleVisit(models.Model):
+    customer_name = models.CharField(max_length=64, null = True)
+    email = models.EmailField(max_length = 128, null = True)
+    phone = PhoneField(blank=True, help_text='Contact phone number')
+    company_name = models.CharField(max_length=64, null= True)
+    date = models.DateField(default=timezone.now)
+    time = models.TimeField()
+
+
 

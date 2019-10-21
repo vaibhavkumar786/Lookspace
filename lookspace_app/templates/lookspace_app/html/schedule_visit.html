@@ -1,0 +1,71 @@
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block header %}
+<head>
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/partnerform_style.css' %}">
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/utils.css' %}">
+</head>
+{% endblock header %}
+{% block content%}
+<body>
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url(/static/lookspace_app/images/partner3.jpg);">
+					<span class="login100-form-title-1">
+                        Schedule A Visit
+					</span>
+				</div>
+				<form action="" class="login100-form validate-form" id = "visit_form" method="POST">
+                    {% csrf_token %}
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Fullname</span>
+						<input class="input100" type="text" name="customer_name" placeholder="Enter Fullname" required>
+						<span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Email is required">
+                        <span class="label-input100">Email</span>
+                        <input class="input100" type="text" name="email" placeholder="Enter Email" required>
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Contact is required">
+                        <span class="label-input100">Contact Number</span>
+                        <input class="input100" type="text" name="phone_number" placeholder="Enter Phone Number" required>
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Comapny Name is required">
+                        <span class="label-input100">Company Name</span>
+                        <input class="input100" type="text" name="company_name" placeholder="Enter Company Name" required>
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Visit Date is required">
+                            <span class="label-input100">Date</span>
+                            <input class="input100" type="date" name="visit_date" required>
+                            <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Time is required">
+                            <span class="label-input100">Time</span>
+                            <input class="input100" type="time" name="visit_time" min="09:00" max="18:00"required>
+                            <small>Office hours are 9am to 6pm</small>
+                            <!-- <span class="focus-input100"></span> -->
+                        </div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" onclick = "myfun()">
+							Query
+						</button>
+                    </div>
+				</form>
+			</div>
+		</div>
+    </div>
+</body>
+<script>
+        function myfun() {
+            var frm = document.getElementsById('visit_form');
+            frm.submit(); // Submit the form
+            frm.reset();  // Reset all form data
+            return false; // Prevent page refresh
+        }
+        </script>
+{% endblock content  %}
+
