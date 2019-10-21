@@ -33,6 +33,8 @@ urlpatterns = [
     # path('partner_signup/', views.partner_signup, name = "partner_signup"),
     # path('partner_signin/', views.partner_signin, name = "partner_signin"),
     path('bookvisitslot/', views.schedule_visit, name = "schedule_visit"),
+    path('contactus/', views.contact, name = "contact"),
+
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
