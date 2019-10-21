@@ -1,0 +1,53 @@
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block header %}
+<head>
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/contact_style.css' %}">
+    <!-- <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/m.css' %}"> -->
+</head>
+{% endblock header %}
+{% block content%}
+<body>
+	<div class="bg-contact100" style="background-image: url(/static/lookspace_app/images/contact_bg.jpg);">
+		<div class="container-contact100">
+			<div class="wrap-contact100">
+				<div class="contact100-pic js-tilt" data-tilt>
+					<img src="{% static 'lookspace_app/images/contact_email.png' %}" alt="Email.png">
+				</div>
+                    <form action="" class="login100-form validate-form" id = "visit_form" method="POST">
+                            {% csrf_token %}
+                        <span class="contact100-form-title">
+                                Get in touch
+                        </span>
+                        <div class="wrap-input100 validate-input" data-validate = "Name is required">
+						<input class="input100" type="text" name="name" placeholder="Name" required>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="email" placeholder="Email" required>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Message is required">
+						<textarea class="input100" name="message" placeholder="Message" required></textarea>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="container-contact100-form-btn">
+						<button class="contact100-form-btn">
+							Send
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+{% endblock content %}
