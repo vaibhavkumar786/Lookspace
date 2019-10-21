@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
@@ -129,8 +130,8 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'lookspace_app.User'
 CRISPY_TEMPLATE_PACK ='bootstrap4'
-LOGOUT_URL = 'logout'
 
+LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
@@ -140,4 +141,10 @@ STATICFILES_DIRS = [
 ]
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS') is not None
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 

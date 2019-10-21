@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from .models import User
 from django.contrib.auth import login
@@ -7,28 +7,44 @@ from django.views.generic import CreateView
 from django.views.generic import TemplateView
 from .forms import PartnerSignUpForm, CustomerSignUpForm , SpaceDetailsForm
 from django.contrib.auth.decorators import login_required
-from .models import SpaceDetails , BookedSeats
+from .models import *
 from datetime import *
+from django.urls import reverse
+from django.core.mail import send_mail
 
 # Create your views here..
 
 def home_page(request):
     return render(request, 'lookspace_app/home_page.html')
 
-# def index(request):
-#     return render(request, 'lookspace_app/index.html', {})
-
 class SignUpView(TemplateView):
     template_name = 'lookspace_app/signup.html'
 
 
-# def home(request):
-#     if request.user.is_authenticated:
-#         if request.user.is_partner:
-#             return redirect('partners:quiz_change_list')
-#         else:
-#             return redirect('customers:quiz_list')
-#     return render(request, 'lookspace_app/home.html')
+def schedule_visit(request):
+    if request.method == 'POST':
+        customer_name = request.POST.get("customer_name")
+        email = request.POST.get("email")
+        phone_number = request.POST.get("phone_number")
+        company_name = request.POST.get("company_name")
+        visit_date = request.POST.get("visit_date")
+        visit_time = request.POST.get("visit_time")
+        visit_info = ScheduleVisit(customer_name = customer_name, email = email, phone = phone_number,
+        company_name = company_name, date = visit_date, time = visit_time)
+        visit_info.save()
+        send = customer_name+'\n' + email + '\n' + phone_number + '\n' + company_name + '\n' + visit_date + '\n' + visit_time
+        send_mail(
+        'Testing Email',
+        send,
+        'vaibhav.kumar@mountblue.io',
+        ['vaibhav.at.kumar@gmail.com'],
+        fail_silently = False
+        )
+        return HttpResponseRedirect(reverse('thank_you'))
+    return render(request, 'lookspace_app/html/schedule_visit.html')
+
+def thank_you(request):
+     return render(request, 'lookspace_app/html/thankyou_page.html')
 
 def index(request):
     if request.user.is_authenticated:
@@ -37,18 +53,6 @@ def index(request):
         else:
             return redirect('customers:quiz_list')
     return render(request, 'lookspace_app/html/index.html')
-
-def user_signup(request):
-    return render(request, 'lookspace_app/html/user_signup.html')
-
-def user_signin(request):
-    return render(request, 'lookspace_app/html/user_signin.html')
-
-def partner_signup(request):
-    return render(request, 'lookspace_app/html/partner_signup.html')
-
-def partner_signin(request):
-    return render(request, 'lookspace_app/html/partner_signin.html')
 
 
 class PartnerSignUpView(CreateView):

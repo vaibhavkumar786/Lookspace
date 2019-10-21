@@ -4,7 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     #  path('', views.index, name='index'),
     # path('', views.home, name='home'),
@@ -29,10 +28,11 @@ urlpatterns = [
     ], 'lookspace_app'), namespace='partners')),
 
     path('', views.index, name = "index"),
-    path('user_signup/', views.user_signup, name = "user_signup"),
-    path('user_signin/', views.user_signin, name = "user_signin"),
-    path('partner_signup/', views.partner_signup, name = "partner_signup"),
-    path('partner_signin/', views.partner_signin, name = "partner_signin"),
+    path('thankyoupage/', views.thank_you, name = "thank_you"),
+    # path('user_signin/', views.user_signin, name = "user_signin"),
+    # path('partner_signup/', views.partner_signup, name = "partner_signup"),
+    # path('partner_signin/', views.partner_signin, name = "partner_signin"),
+    path('bookvisitslot/', views.schedule_visit, name = "schedule_visit"),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
