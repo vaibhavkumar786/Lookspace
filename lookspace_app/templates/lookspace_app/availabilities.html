@@ -32,15 +32,10 @@
                 <label><b>Enter End Date </b></label>
                 <input type="time" name="end_time" id="end_time">
         </div>
-        <input type="submit" onclick="showInput();">
+        <input type="submit" >
       </form>
-
-       {% for data in booked_data %}
-            {{data.start_date}}
-
-       {% endfor %}
-       <h3>dates</h3>
-        {{st_date}}
+       <h3>Comments</h3>
+        {{comment}}
     {% endblock %}
 </body>
 </html>

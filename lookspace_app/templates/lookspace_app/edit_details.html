@@ -13,7 +13,7 @@
     {% block content %}
 
     <form action="" method="POST">
-
+        {% csrf_token %}
         <div class="form-group">
         <label for="space_type">Space Type: </label>
         <input id="space_type" type="text" name="space_type" value="{{ all_data.space_type }}">
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
                 <label for="time">Time: </label>
-                <input id="time" type="text" name="time" value="{{ all_data.time }}">
+                <input id="time" type="time" name="time" value="{{ all_data.time }}">
         </div>
         <div class="form-group">
                 <label for="price">Price: </label>

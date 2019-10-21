@@ -30,22 +30,18 @@
     <table>
     <tr>
         <th>Space Type</th>
-        <th>Seater</th>
-        <th>Total Quantity</th>
-        <th>Time</th>
-        <th>Price Per Qty</th>
-        <th></th>
-        <th></th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
     </tr>
         {% for data in all_data %}
                 <tr>
-                    <td>{{data.space_type}}</td>
-                    <td>{{data.seater}}</td>
-                    <td>{{data.total_quantity}}</td>
-                    <td>{{data.time}}</td>
-                    <td>{{data.price}}</td>
-                    <td><a href="edit/{{data.id}}"><button>EDIT</button></a></td>
-                    <td><a href="delete/{{data.id}}"><button>DELETE</button></a></td>
+                    <td>{{data.space}}</td>
+                    <td>{{data.start_date}}</td>
+                    <td>{{data.end_date}}</td>
+                    <td>{{data.start_time}}</td>
+                    <td>{{data.end_time}}</td>
                 </tr>
 
         {% endfor %}
