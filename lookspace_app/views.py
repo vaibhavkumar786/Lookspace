@@ -101,8 +101,22 @@ def all_space_details(request):
 @login_required
 def edit_space_details(request, id):
     all_data = SpaceDetails.objects.get(id=id)
-    all_data.save()
+
+    if request.method == "POST" :
+        all_data.space_type = request.POST.get("space_type")
+        all_data.total_quantity = request.POST.get("total_quantity")
+        all_data.seater = request.POST.get("seater")
+        all_data.time = request.POST.get("time")
+        all_data.price = request.POST.get("price")
+        all_data.save()
+
     return render(request, 'lookspace_app/edit_details.html', {'all_data':all_data} )
+
+@login_required
+def delete_space_details(request, id):
+    SpaceDetails.objects.filter(id=id).delete()
+
+    return render(request, 'lookspace_app/space_details.html', {} )
 
 @login_required
 def all_unique_space(request):
@@ -122,6 +136,10 @@ def all_user_booking_details(request):
     all_data = BookedSeats.objects.filter(user = request.user)
     return render(request, 'lookspace_app/my_booking_details.html', {'all_data':all_data} )
 
+@login_required
+def partner_space_booked_details(request):
+    all_data = BookedSeats.objects.filter(user = request.user)
+    return render(request, 'lookspace_app/partner_space_booked.html', {'all_data':all_data} )
 
 @login_required
 def check_availability_spaces(request, id):

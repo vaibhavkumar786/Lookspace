@@ -35,6 +35,7 @@
         <th>Time</th>
         <th>Price Per Qty</th>
         <th></th>
+        <th></th>
     </tr>
         {% for data in all_data %}
                 <tr>
@@ -44,6 +45,7 @@
                     <td>{{data.time}}</td>
                     <td>{{data.price}}</td>
                     <td><a href="edit/{{data.id}}"><button>EDIT</button></a></td>
+                    <td><a href="delete/{{data.id}}"><button>DELETE</button></a></td>
                 </tr>
 
         {% endfor %}

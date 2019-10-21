@@ -13,6 +13,8 @@
     <link rel="stylesheet" type="text/css" href = "{% static 'lookspace_app/css/main.css' %}">
     <link rel="stylesheet" type="text/css" href = "{% static 'lookspace_app/css/main.scss' %}">
     <link href="https://fonts.googleapis.com/css?family=B612&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static '/lookspace_app/css/partners.css' %}">
+
     {% if title %}
     <title>Lookspace -{{ title }}</title>
     {% else %}
@@ -36,8 +38,15 @@
                 <a class="nav-item nav-link" href="#">About</a>
               </div>
               <div class="navbar-nav">
+
                   {% if user.is_authenticated %}
-                    <p class="pt-3" style="color: aliceblue;"><a href="/customers/mybookings" style="text-decoration: none; color: aliceblue;"> Booking Details</a>&nbsp &nbsp  <strong>{{ user.username }}</strong> <a style="text-decoration: none;" href="{% url 'logout' %}">Log out</a></p>
+                  {% if user.is_customer %}
+                  <a href="/customers/mybookings" style="text-decoration: none; color: aliceblue; margin-top: 6%"> Booking Details</a>&nbsp &nbsp
+                  {% else %}
+                  <a href="/partners/myspace" style="text-decoration: none; color: aliceblue;margin-top: 6%;"> My Space </a>&nbsp &nbsp
+                  <a href="/partners/bookedspace" style="text-decoration: none; color: aliceblue;margin-top: 6%;"> Booked Details</a>&nbsp &nbsp
+                  {% endif %}
+                    <p class="pt-3" style="color: aliceblue;"><strong>{{ user.username }}</strong> <a style="text-decoration: none;" href="{% url 'logout' %}">Log out</a></p>
                   {% else %}
                     <a href="{% url 'login' %}" class="nav-item nav-link" >Log in</a>
                     <a href="{% url 'signup' %}" class="nav-item nav-link" >Sign up</a>
