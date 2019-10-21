@@ -42,5 +42,11 @@ class ScheduleVisit(models.Model):
     date = models.DateField(default=timezone.now)
     time = models.TimeField()
 
+class ContactForm(models.Model):
+    contact_name = models.CharField(max_length=64, null = True)
+    email = models.EmailField(max_length = 128, null = True)
+    message = models.CharField(max_length=64, null = True)
+
+
 
 
