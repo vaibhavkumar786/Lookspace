@@ -11,7 +11,10 @@ from .models import *
 from datetime import *
 from django.urls import reverse
 from django.core.mail import send_mail
-
+from django.db.models import Count
+import  time
+from datetime import datetime
+from time import mktime
 # Create your views here..
 
 def home_page(request):
@@ -119,7 +122,6 @@ def space_details_subsriptions(request):
 @login_required
 def all_space_details(request):
     current_user = request.user
-    print("current ================", current_user.id)
     all_data = SpaceDetails.objects.filter(user=current_user.id)
     return render(request, 'lookspace_app/space_details.html', {'all_data':all_data} )
 
@@ -163,69 +165,93 @@ def all_user_booking_details(request):
 
 @login_required
 def partner_space_booked_details(request):
-    all_data = BookedSeats.objects.filter(user = request.user)
-    return render(request, 'lookspace_app/partner_space_booked.html', {'all_data':all_data} )
+    # all_data = BookedSeats.objects.filter(user = request.user)
+    # data = BookedSeats.objects.values('space_id').annotate(count=Count('space_id'))
+    space = SpaceDetails.objects.filter(user_id=request.user.id)
+
+    final = []
+    count =0
+    for data in space:
+        for d in data.bookedseats_set.all():
+            data_value = {}
+            count +=1
+            data_value['start_date'] = d.start_date
+            data_value['start_time'] = d.start_time
+            data_value['end_date'] = d.end_date
+            data_value['end_time'] = d.end_time
+            data_value['space'] = d.space
+            c = User.objects.get(id=d.user_id)
+
+            data_value['username'] = c.username
+            final.append(data_value)
+
+    return render(request, 'lookspace_app/partner_space_booked.html', {'space':space,'final':final,}  )
 
 @login_required
 def check_availability_spaces(request, id):
     booked_data = BookedSeats.objects.filter(space__id = id)
     first_date=request.GET.get("start_date")
     second_date=request.GET.get("end_date")
-    first_time=request.GET.get("start_date")
-    second_time=request.GET.get("end_date")
+    first_time=request.GET.get("start_time")
+    second_time=request.GET.get("end_time")
 
-    first_date = str(first_date).split('-')
-    second_date = str(second_date).split('-')
-    first_time = str(first_time).split('-')
-    second_time = str(second_time).split('-')
-
-    if first_date == ['None']:
-        date_today = str(date.today()).split('-')
+    if first_date == None:
+        date_today = date.today()
         first_date = date_today
         second_date = date_today
-        first_time = date_today
-        second_time = date_today
+        first_time = time.localtime()
+        second_time = time.localtime()
 
-    print(first_date)
+        first_time = datetime.fromtimestamp(mktime(first_time)).time()
+        second_time = datetime.fromtimestamp(mktime(second_time)).time()
 
     comment = ""
     check = False
     for dates in booked_data:
-        st_date= str(dates.start_date).split('-')
-        en_date = str(dates.end_date).split('-')
-        st_time = str(dates.start_time).split('-')
-        en_time = str(dates.end_time).split('-')
+        st_date= dates.start_date
+        en_date = dates.end_date
+        st_time = dates.start_time
+        en_time = dates.end_time
 
-        y1, m1, d1 = st_date
-        y2, m2, d2 = first_date
+        if type(first_date) == str :
+            print("hello")
+            first_date = datetime.strptime(first_date, '%Y-%m-%d').date()
+            second_date = datetime.strptime(second_date, '%Y-%m-%d').date()
 
-        y3, m3, d3 = en_date
-        y4, m4, d4 = second_date
-        print(st_date,en_date,first_date,second_date)
-        b1 = date(int(y1), int(m1), int(d1))
-        b2 = date(int(y2), int(m2), int(d2))
+        if type(first_time) == str:
+            first_time = time.strptime(first_time, "%H:%M")
+            second_time = time.strptime(second_time, "%H:%M")
+            first_time = datetime.fromtimestamp(mktime(first_time)).time()
+            second_time = datetime.fromtimestamp(mktime(second_time)).time()
 
-        if int(y2) == int(y1) and int(y3) == int(y4):
-            if int(m2) == int(m1) and int(m3) == int(m4):
-                if int(d2) == int(d1) and int(d3) == int(d4):
-                    check = True
-                elif (d1 >= d2 and d3 <= d2) or (d1 >= d4 and d3 <= d2) or (d2 >= d1 and d4 <= d1) or (d2 >= d3 and d4 <= d3) :
-                    check = False
-                else:
-                    check = True
-            elif (m1 >= m2 and m3 <= m2) or (m1 >= m4 and m3 <= m2) or (m2 >= m1 and m4 <= m1) or (m2 >= m3 and m4 <= m3):
-                check = False
-            else:
-                check= True
-        elif (y1 >= y2 and y3 <= y2) or (y1 >= y4 and y3 <= y2) or (y2 >= y1 and y4 <= y1) or (y2 >= y3 and y4 <= y3):
-            check = False
+        print("+++++++++++++++ ================== ",st_date,first_date,en_date)
+        print(type(st_date), type(first_date))
+        if st_date <= first_date <= en_date:
+            print('in between')
+            check =True
+        elif st_date <= second_date <= en_date:
+            print('in between')
+            check =True
         else:
-            check = True
+            print("No")
+            pass
+
+        print(type(st_time))
+
+        if st_time <= first_time <= en_time:
+            print('in between time')
+            check =True
+        elif st_time <= second_time <= en_time:
+            print('in between time')
+            check =True
+        else:
+            print("No ....")
+            pass
 
         if check == True:
             break
 
-    if check == False:
+    if check == True:
         comment = "Sorry, Please choose another date and time"
     else:
         comment = "Your date is available"
