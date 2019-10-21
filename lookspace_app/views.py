@@ -11,6 +11,7 @@ from .models import *
 from datetime import *
 from django.urls import reverse
 from django.core.mail import send_mail
+from django.db.models import Count
 
 # Create your views here..
 
@@ -98,7 +99,6 @@ def space_details_subsriptions(request):
 @login_required
 def all_space_details(request):
     current_user = request.user
-    print("current ================", current_user.id)
     all_data = SpaceDetails.objects.filter(user=current_user.id)
     return render(request, 'lookspace_app/space_details.html', {'all_data':all_data} )
 
@@ -142,8 +142,24 @@ def all_user_booking_details(request):
 
 @login_required
 def partner_space_booked_details(request):
-    all_data = BookedSeats.objects.filter(user = request.user)
-    return render(request, 'lookspace_app/partner_space_booked.html', {'all_data':all_data} )
+    # all_data = BookedSeats.objects.filter(user = request.user)
+    # data = BookedSeats.objects.values('space_id').annotate(count=Count('space_id'))
+    space = SpaceDetails.objects.filter(user_id=request.user.id)
+
+    final = []
+    count =0
+    for data in space:
+        for d in data.bookedseats_set.all():
+            data_value = {}
+            count +=1
+            data_value['start_date'] = d.start_date
+            data_value['start_time'] = d.start_time
+            data_value['end_date'] = d.end_date
+            data_value['end_time'] = d.end_time
+            data_value['space'] = d.space
+            final.append(data_value)
+
+    return render(request, 'lookspace_app/partner_space_booked.html', {'space':space,'final':final,}  )
 
 @login_required
 def check_availability_spaces(request, id):
@@ -165,7 +181,6 @@ def check_availability_spaces(request, id):
         first_time = date_today
         second_time = date_today
 
-    print(first_date)
 
     comment = ""
     check = False
