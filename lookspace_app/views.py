@@ -21,6 +21,9 @@ class SignUpView(TemplateView):
     template_name = 'lookspace_app/signup.html'
 
 
+def error_404_view(request, exception):
+    return render(request,'lookspace_app/html/404.html')
+
 def schedule_visit(request):
     if request.method == 'POST':
         customer_name = request.POST.get("customer_name")
@@ -45,6 +48,24 @@ def schedule_visit(request):
 
 def thank_you(request):
      return render(request, 'lookspace_app/html/thankyou_page.html')
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        contact_info = ContactForm(contact_name = name, email = email, message = message)
+        contact_info.save()
+        send = name + '\n' + email + '\n' + message
+        send_mail(
+        'Testing Email',
+        send,
+        'vaibhav.kumar@mountblue.io',
+        ['vaibhav.at.kumar@gmail.com'],
+        fail_silently = False
+        )
+        return HttpResponseRedirect(reverse('thank_you'))
+    return render(request, 'lookspace_app/html/contact.html')
 
 def index(request):
     if request.user.is_authenticated:

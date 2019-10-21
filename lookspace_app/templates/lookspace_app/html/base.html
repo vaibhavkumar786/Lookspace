@@ -34,8 +34,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
               <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="#">Home</a>
-                <a class="nav-item nav-link" href="#">About</a>
+                <a class="nav-item nav-link" href="#">HOME</a>
+                <a class="nav-item nav-link" href="#">ABOUT</a>
               </div>
               <div class="navbar-nav">
 
@@ -48,8 +48,11 @@
                   {% endif %}
                     <p class="pt-3" style="color: aliceblue;"><strong>{{ user.username }}</strong> <a style="text-decoration: none;" href="{% url 'logout' %}">Log out</a></p>
                   {% else %}
-                    <a href="{% url 'login' %}" class="nav-item nav-link" >Log in</a>
-                    <a href="{% url 'signup' %}" class="nav-item nav-link" >Sign up</a>
+                    <a href="{% url 'login' %}" class="nav-item nav-link" >LOGIN</a>
+                    <a href="{% url 'signup' %}" class="nav-item nav-link" >SIGNUP</a>
+                     <div class="navbar-nav mr-auto">
+                    <a class="nav-item nav-link" href="{% url 'contact' %}">CONTACT</a>
+                </div>
                   {% endif %}
                 </div>
             </div>
