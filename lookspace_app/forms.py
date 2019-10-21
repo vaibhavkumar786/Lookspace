@@ -3,6 +3,7 @@ from .models import User
 from django.db import transaction
 from django.forms import ModelForm
 from .models import SpaceDetails
+from django import forms
 
 
 class PartnerSignUpForm(UserCreationForm):
@@ -33,4 +34,7 @@ class SpaceDetailsForm(ModelForm):
     class Meta:
         model = SpaceDetails
         fields = ('space_type', 'seater', 'total_quantity','time', 'price')
+
+# class ScheduleVisit(forms.ModelForm):
+
 
