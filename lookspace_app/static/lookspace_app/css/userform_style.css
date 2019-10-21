@@ -6,15 +6,15 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
         position: relative;
         color: black;
         font-size: 13px;
-        top: 36px;
-        left: 5px;
+        top: 4vh;
+        left: 0.2vw;
     }
     #icon1{
         position: absolute;
         color: black;
         font-size: 13px;
-        top: 35px;
-        left: 5px;
+        top: 3.8vh;
+        left: 0.1vw;
     }
   img {
     max-width: 100%;
@@ -98,17 +98,14 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
 
     .signup-content {
         padding: 75px 0;
-        /* // flex-flow: wrap; */
-    }
-    .signup-form, .signup-image, .signin-form, .signin-image{
-        width: 50%;
-        overflow: hidden;
     }
     .signup-image {
         margin: 0 55px;
     }
     .form-title {
-        margin-bottom: 33px;
+        margin-bottom: 2vh;
+        font-size: 1.7rem;
+        font-weight: 700;
     }
     .signup-image {
         margin-top: 45px;
@@ -135,16 +132,6 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
 
   .signup-image {
     margin: 0 55px; }
-
-  .form-title {
-    margin-bottom: 33px; }
-
-  .signup-image {
-    margin-top: 45px; }
-
-  figure {
-    margin-bottom: 50px;
-    text-align: center; }
 
   .form-submit {
     display: inline-block;
@@ -178,16 +165,16 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
     }
 
   .signup-form {
-    margin-left: 75px;
-    margin-right: 75px;
-    padding-left: 34px; }
+    margin-left: 2vw;
+    margin-right: 3vw;
+    padding-left: 2vw; }
 
   .register-form {
     width: 100%; }
 
   .form-group {
     position: relative;
-    margin-bottom: 25px;
+    margin-bottom: 2vh;
     overflow: hidden; }
     .form-group:last-child {
       margin-bottom: 0px; }
@@ -355,7 +342,6 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
     margin-left: 0px;
     margin-right: 0px;
     padding-left: 0px;
-    /* box-sizing: border-box; */
     padding: 0 30px; }
 
   .signin-image {
@@ -392,7 +378,16 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
     padding: 0 30px; }
 
   .form-title {
-    text-align: center; } }
+    text-align: center; }
+    #icon1{
+      position: absolute;
+      color: black;
+      font-size: 13px;
+      top: 3.7vh;
+      left: 0.7vw;
+  }
+  }
+
 
 @media screen and (max-width: 400px) {
   .social-login {
