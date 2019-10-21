@@ -34,6 +34,7 @@
         <th>End Date</th>
         <th>Start Time</th>
         <th>End Time</th>
+        <th>Username</th>
     </tr>
         {% for data in final %}
                 <tr>
@@ -42,6 +43,7 @@
                     <td>{{data.end_date}}</td>
                     <td>{{data.start_time}}</td>
                     <td>{{data.end_time}}</td>
+                    <td>{{data.username}}</td>
                 </tr>
 
         {% endfor %}
