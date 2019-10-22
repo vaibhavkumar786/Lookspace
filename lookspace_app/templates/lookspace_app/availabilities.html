@@ -1,50 +1,52 @@
-<!DOCTYPE html>
-<html>
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block header %}
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/partnerform_style.css' %}">
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/utils.css' %}">
 </head>
-<body class="check-availability">
-{% extends 'lookspace_app/html/base.html' %}
-    {% block content %}
-
-<div class="availability">
-        <h3 style="color: aliceblue; text-align: center;">Check Availability</h3>
-    <div class="form-availability" >
-
-    <form>
-            {% csrf_token %}
-
-        <div class="user_input">
-                <label><b>Choose Start Date </b></label>
-                <input type="date" name="start_date" id="start_date">
+{% endblock header %}
+{% block content%}
+<body>
+<div class="limiter">
+<div class="container-login100">
+	<div class="wrap-login100">
+	<div class="login100-form-title" style="background-image: url(/static/lookspace_app/images/partner3.jpg);">
+	   <span class="login100-form-title-1">
+                   Check Availability
+	   </span>
+	</div>
+        <form action="" class="login100-form validate-form" id = "visit_form" method="POST">
+        {% csrf_token %}
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Start Date is required">
+            <span class="label-input100">Start Date</span>
+            <input class="input100" type="date" name="start_date" id="start_date" required>
+            <span class="focus-input100"></span>
         </div>
-        <div class="user_input">
-                <label><b>Choose End Date </b></label>
-                <input type="date" name="end_date" id="end_date">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="End Date is required">
+            <span class="label-input100">End Date</span>
+            <input class="input100" type="date" name="end_date" id="end_date" required>
+            <span class="focus-input100"></span>
         </div>
-        <div class="user_input">
-                <label><b>Choose Start Date </b></label>
-                <input type="time" name="start_time" id="start_time">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Time is required">
+            <span class="label-input100">Start Time</span>
+            <input class="input100" type="time" name="start_time" id="start_time" required>
+            </div>
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Time is required">
+            <span class="label-input100">End Time</span>
+            <input class="input100" type="time" name="end_time" id="end_time" required>
+            </div>
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn" onclick = "myfun()">
+            Check Availability
+	    </button>
         </div>
-        <div class="user_input">
-                <label><b>Choose End Date </b></label>
-                <input type="time" name="end_time" id="end_time">
+        </form>
+        <div class="result">
+                <p style = "padding: 3vw 3vw; font-size: 1.5em; color: black; background-color: whitesmoke; ">Results :  {{comment}}</p>
         </div>
-        <input type="submit" class="">
-      </form>
-
-</div>
-<div class="result">
-        <p>Results :  {{comment}}</p>
-
-</div>
-</div>
-{% endblock %}
-
+	</div>
+        </div>
+    </div>
 </body>
-
-</html>
+{% endblock content  %}
