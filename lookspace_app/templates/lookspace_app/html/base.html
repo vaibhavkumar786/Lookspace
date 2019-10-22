@@ -14,8 +14,8 @@
     <link rel="stylesheet" type="text/css" href = "{% static 'lookspace_app/css/thank_style.css' %}">
     <link href="https://fonts.googleapis.com/css?family=B612&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static '/lookspace_app/css/partners.css' %}">
+    <link rel="shortcut icon" href="{% static 'lookspace_app/images/icon.png' %}" type="image/icon type" />
     <link rel="stylesheet" type="text/css" href="{% static '/lookspace_app/css/customers.css' %}">
-    <link rel="shortcut icon" href="{% static 'lookspace_app/images/logo.png' %}" type="image/icon type" />
     {% if title %}
     <title>Lookspace -{{ title }}</title>
     {% else %}
@@ -45,7 +45,7 @@
                   <a class="nav-item nav-link" href="/customers/mybookings" style="text-decoration: none; color: aliceblue; margin-top: 2vh; padding-right: 2vw;"> BOOKING DETAILS</a>
                   {% else %}
                   <a class="nav-item nav-link" href="/partners/myspace" style="text-decoration: none; color: aliceblue; margin-top: 2vh; padding-right: 2vw;"> MY SPACE </a>
-                  <a class="nav-item nav-link" href="/partners/bookedspace" style="text-decoration: none; color: aliceblue;margin-top: 6%; padding-right: 2vw;"> BOOKED DETAILS</a>
+                  <a class="nav-item nav-link" href="/partners/bookedspace" style="text-decoration: none; color: aliceblue;margin-top: 2vh; padding-right: 2vw;"> BOOKED DETAILS</a>
                   {% endif %}
                     <p class="nav-item nav-link" class="pt-3" style="color: aliceblue; text-decoration: none; margin-top: 2vh; padding-right: 2vw; text-transform:uppercase;"><strong>{{ user.username }}</strong> <a href="{% url 'logout' %}" style = "padding-left: 2vw; text-decoration: none; color: white;">LOG OUT </a></p>
                   {% else %}
