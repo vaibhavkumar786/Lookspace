@@ -1,54 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-        <style>
-            table {
-              font-family: arial, sans-serif;
-              border-collapse: collapse;
-              width: 100%;
-            }
-
-            td, th {
-              border: 1px solid #dddddd;
-              text-align: left;
-              padding: 8px;
-            }
-
-            tr:nth-child(even) {
-              background-color: #dddddd;
-            }
-
-            </style>
-    </head>
-    <body>
-    {% extends 'lookspace_app/html/base.html' %}
-    {% block content %}
-    <table>
-    <tr>
-        <th>Space Type</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Username</th>
-    </tr>
-        {% for data in final %}
-                <tr>
-                    <td>{{data.space}}</td>
-                    <td>{{data.start_date}}</td>
-                    <td>{{data.end_date}}</td>
-                    <td>{{data.start_time}}</td>
-                    <td>{{data.end_time}}</td>
-                    <td>{{data.username}}</td>
-                </tr>
-
-        {% endfor %}
-    </table>
-
-    {% endblock %}
-    </body>
-</html>
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block header %}
+<head>
+        <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/user_dashboard.css' %}">
+</head>
+{% endblock header %}
+{% block content %}
+<body>
+		<div class="container-table">
+			<div class="wrap-table">
+				<div class="table space_table m-b-110">
+					<table data-vertable="space_table">
+						<thead>
+							<tr class="row100 head">
+								<th class="column column-head" data-column="column-head">Space Type</th>
+								<th class="column seater-column" data-column="seater-column">Start Date</th>
+								<th class="column time-column" data-column="time-column">End Date</th>
+                <th class="column price-column" data-column="price-column">Start Time</th>
+								<th class="column price-column" data-column="price-column">End Time</th>
+								<th class="column price-column" data-column="price-column">Username</th>
+              </tr>
+						</thead>
+						<tbody>
+              {% for data in final %}
+							<tr class="row100">
+								<td class="column column-head" data-column="column-head">{{data.space}}</td>
+								<td class="column seater-column" data-column="seater-column">{{data.start_date}}</td>
+								<td class="column time-column" data-column="time-column">{{data.end_date}}</td>
+                <td class="column price-column" data-column="price-column">{{data.start_time}}</td>
+								<td class="column username-column" data-column="username-column">{{data.end_time}}</td>
+								<td class="column username-column" data-column="username-column">{{data.username}}</td>
+              </tr>
+              {% endfor %}
+						</tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+</body>
+{% endblock content %}

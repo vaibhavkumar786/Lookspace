@@ -201,7 +201,6 @@ def all_available_spaces(request, id):
 
     time_in_hrs = int((all_data.time)[:-3])
     price_per_hour = all_data.price / time_in_hrs
-    print("price -----------------",price_per_hour)
 
     if request.method == "POST":
         book_space = BookedSeats(space=all_data ,user = request.user, start_date = request.POST.get("start_date"), end_date = request.POST.get("end_date"), start_time = request.POST.get("start_time"), end_time = request.POST.get("end_time"))
