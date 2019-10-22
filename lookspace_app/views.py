@@ -44,7 +44,7 @@ def schedule_visit(request):
         'Testing Email',
         send,
         'vaibhav.kumar@mountblue.io',
-        ['vaibhav.at.kumar@gmail.com'],
+        ['shashir0508@gmail.com'],
         fail_silently = False
         )
         return HttpResponseRedirect(reverse('thank_you'))
@@ -62,10 +62,10 @@ def contact(request):
         contact_info.save()
         send = name + '\n' + email + '\n' + message
         send_mail(
-        'Testing Email',
+        'Contact',
         send,
         'vaibhav.kumar@mountblue.io',
-        ['vaibhav.at.kumar@gmail.com'],
+        ['shashir0508@gmail.com'],
         fail_silently = False
         )
         return HttpResponseRedirect(reverse('thank_you'))
@@ -91,9 +91,8 @@ class PartnerSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        print("Hello")
+        messages.error(self.request, 'Please, Try another email/password.')
         login(self.request, user)
-        print("Hello3")
         return redirect('partners:quiz_change_list')
 
 
@@ -196,10 +195,11 @@ def all_available_spaces(request, id):
     '''
     booking spaces by user and calculating bills
     '''
+    print("email----", request.user.email)
     all_data = SpaceDetails.objects.get(id=id)
     booked_data = BookedSeats.objects.filter(space__id = id)
-    print("+++++++++", int((all_data.time)[:-6]) , all_data.price)
-    time_in_hrs = int((all_data.time)[:-6])
+
+    time_in_hrs = int((all_data.time)[:-3])
     price_per_hour = all_data.price / time_in_hrs
     print("price -----------------",price_per_hour)
 
@@ -236,7 +236,7 @@ def all_available_spaces(request, id):
             print("space is not available")
             messages.error(request, 'Space is not available.')
 
-    return render(request, 'lookspace_app/book_space.html', {'all_data':all_data, 'messages':messages} )
+    return render(request, 'lookspace_app/book_space.html', {'all_data':all_data} )
 
 @login_required
 def all_user_booking_details(request):

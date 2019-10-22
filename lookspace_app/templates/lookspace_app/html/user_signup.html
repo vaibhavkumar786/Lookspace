@@ -9,12 +9,23 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
 <div class="main">
     <!-- Sign up form -->
     <section class="signup">
         <div class="container">
+                <div class="alert alert-danger" role="alert">
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
             <div class="signup-content">
                 <div class="signup-form">
+
                     <h3 class="form-title">Sign up as a {{ user_type }}</h5>
 
                     <form method="POST" class="register-form" id="register-form">
