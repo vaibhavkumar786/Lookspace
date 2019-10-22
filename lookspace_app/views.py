@@ -13,8 +13,9 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.db.models import Count
 import  time
-from datetime import datetime
+from datetime import datetime, date
 from time import mktime
+from django.contrib import messages
 # Create your views here..
 
 def home_page(request):
@@ -150,13 +151,92 @@ def all_unique_space(request):
     all_data = SpaceDetails.objects.all()
     return render(request, 'lookspace_app/unique_space.html', {'all_data':all_data})
 
+def check_spaces(booked_data,first_date,second_date, first_time, second_time):
+    check = False
+    for dates in booked_data:
+        st_date= dates.start_date
+        en_date = dates.end_date
+        st_time = dates.start_time
+        en_time = dates.end_time
+
+        if type(first_date) == str :
+            first_date = datetime.strptime(first_date, '%Y-%m-%d').date()
+            second_date = datetime.strptime(second_date, '%Y-%m-%d').date()
+
+        if type(first_time) == str:
+            first_time = time.strptime(first_time, "%H:%M")
+            second_time = time.strptime(second_time, "%H:%M")
+            first_time = datetime.fromtimestamp(mktime(first_time)).time()
+            second_time = datetime.fromtimestamp(mktime(second_time)).time()
+
+        if st_date <= first_date <= en_date:
+            check =True
+        elif st_date <= second_date <= en_date:
+            check =True
+        else:
+            pass
+
+        if check == True :
+            if st_time <= first_time <= en_time:
+                check =True
+            elif st_time <= second_time <= en_time:
+                check =True
+            else:
+                check = False
+
+        if check == True:
+            break
+
+    return check
+
+
+
 @login_required
 def all_available_spaces(request, id):
+    '''
+    booking spaces by user and calculating bills
+    '''
     all_data = SpaceDetails.objects.get(id=id)
+    booked_data = BookedSeats.objects.filter(space__id = id)
+    print("+++++++++", int((all_data.time)[:-6]) , all_data.price)
+    time_in_hrs = int((all_data.time)[:-6])
+    price_per_hour = all_data.price / time_in_hrs
+    print("price -----------------",price_per_hour)
+
     if request.method == "POST":
         book_space = BookedSeats(space=all_data ,user = request.user, start_date = request.POST.get("start_date"), end_date = request.POST.get("end_date"), start_time = request.POST.get("start_time"), end_time = request.POST.get("end_time"))
-        book_space.save()
-    return render(request, 'lookspace_app/book_space.html', {'all_data':all_data} )
+
+        start_date = request.POST.get("start_date")
+        end_date = request.POST.get("end_date")
+        start_time = request.POST.get("start_time")
+        end_time = request.POST.get("end_time")
+
+        val = check_spaces(booked_data,start_date,end_date, start_time, end_time)
+        days = 1
+        if datetime.strptime(end_date, '%Y-%m-%d').date() != datetime.strptime(start_date, '%Y-%m-%d').date():
+            diff_date = datetime.strptime(end_date, '%Y-%m-%d').date() - datetime.strptime(start_date, '%Y-%m-%d').date()
+            print(diff_date)
+            print(str(diff_date).split(" "))
+            days = int(str(diff_date).split(" ")[0])
+
+        # calculating time
+        start_time = datetime.strptime(start_time, "%H:%M")
+        end_time = datetime.strptime(end_time, "%H:%M")
+        diff_time = end_time - start_time
+        diff = str(diff_time).split(":")
+        diff_time_hrs = int(diff[0])
+        diff_time_min = int(diff[1])
+
+        print(diff_time_hrs,diff_time_min, "diffffffffffffffffffff-----------------------" )
+        total_price = (price_per_hour + diff_time_min/60 )*price_per_hour*days
+        print(total_price)
+        if val == False:
+            book_space.save()
+        else:
+            print("space is not available")
+            messages.error(request, 'Space is not available.')
+
+    return render(request, 'lookspace_app/book_space.html', {'all_data':all_data, 'messages':messages} )
 
 @login_required
 def all_user_booking_details(request):
@@ -165,8 +245,6 @@ def all_user_booking_details(request):
 
 @login_required
 def partner_space_booked_details(request):
-    # all_data = BookedSeats.objects.filter(user = request.user)
-    # data = BookedSeats.objects.values('space_id').annotate(count=Count('space_id'))
     space = SpaceDetails.objects.filter(user_id=request.user.id)
 
     final = []
@@ -186,6 +264,7 @@ def partner_space_booked_details(request):
             final.append(data_value)
 
     return render(request, 'lookspace_app/partner_space_booked.html', {'space':space,'final':final,}  )
+
 
 @login_required
 def check_availability_spaces(request, id):
@@ -214,7 +293,6 @@ def check_availability_spaces(request, id):
         en_time = dates.end_time
 
         if type(first_date) == str :
-            print("hello")
             first_date = datetime.strptime(first_date, '%Y-%m-%d').date()
             second_date = datetime.strptime(second_date, '%Y-%m-%d').date()
 
@@ -224,29 +302,20 @@ def check_availability_spaces(request, id):
             first_time = datetime.fromtimestamp(mktime(first_time)).time()
             second_time = datetime.fromtimestamp(mktime(second_time)).time()
 
-        print("+++++++++++++++ ================== ",st_date,first_date,en_date)
-        print(type(st_date), type(first_date))
         if st_date <= first_date <= en_date:
-            print('in between')
             check =True
         elif st_date <= second_date <= en_date:
-            print('in between')
             check =True
         else:
-            print("No")
             pass
 
-        print(type(st_time))
-
-        if st_time <= first_time <= en_time:
-            print('in between time')
-            check =True
-        elif st_time <= second_time <= en_time:
-            print('in between time')
-            check =True
-        else:
-            print("No ....")
-            pass
+        if check == True :
+            if st_time <= first_time <= en_time:
+                check =True
+            elif st_time <= second_time <= en_time:
+                check =True
+            else:
+                check = False
 
         if check == True:
             break

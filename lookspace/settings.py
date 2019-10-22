@@ -122,15 +122,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Messages built-in framework
 
-MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-secondary',
-    messages.INFO: 'alert-info',
-    messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger',
-}
 
 
 # Static files (CSS, JavaScript, Images)

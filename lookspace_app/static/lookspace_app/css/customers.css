@@ -1,3 +1,38 @@
-body {
-  background-color: #c2d4d8;
+
+.form-availability {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+
+  margin-top: 2%;
+
+}
+
+.form-availability input {
+  margin-left: 1%;
+}
+
+.availability {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  background-color: #421c52;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 2%;
+  border-radius: 10px;
+}
+
+.result {
+
+  margin-top: 2%;
+  background-color: cadetblue;
+  color: white;
+  font-size: 1.3rem;
+  border-radius: 3px;
+
+}
+
+.result p {
+  margin-left: 2%;
 }
