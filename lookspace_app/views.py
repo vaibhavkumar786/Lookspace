@@ -24,7 +24,7 @@ def home_page(request):
 class SignUpView(TemplateView):
     template_name = 'lookspace_app/signup.html'
 
-
+# def user_dashboard
 def error_404_view(request, exception):
     return render(request,'lookspace_app/html/404.html')
 
