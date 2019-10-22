@@ -34,24 +34,24 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
               <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="#">HOME</a>
-                <a class="nav-item nav-link" href="#">ABOUT</a>
+                <a class="nav-item nav-link" href="/" style="text-decoration: none; color: aliceblue; margin-top: 2vh; padding-right: 2vw;">HOME</a>
+                <a class="nav-item nav-link" href="/" style="text-decoration: none; color: aliceblue; margin-top: 2vh; padding-right: 2vw;">ABOUT</a>
               </div>
               <div class="navbar-nav">
 
                   {% if user.is_authenticated %}
                   {% if user.is_customer %}
-                  <a href="/customers/mybookings" style="text-decoration: none; color: aliceblue; margin-top: 6%"> Booking Details</a>&nbsp &nbsp
+                  <a class="nav-item nav-link" href="/customers/mybookings" style="text-decoration: none; color: aliceblue; margin-top: 2vh; padding-right: 2vw;"> BOOKING DETAILS</a>
                   {% else %}
-                  <a href="/partners/myspace" style="text-decoration: none; color: aliceblue;margin-top: 6%;"> My Space </a>&nbsp &nbsp
-                  <a href="/partners/bookedspace" style="text-decoration: none; color: aliceblue;margin-top: 6%;"> Booked Details</a>&nbsp &nbsp
+                  <a class="nav-item nav-link" href="/partners/myspace" style="text-decoration: none; color: aliceblue; margin-top: 2vh; padding-right: 2vw;"> MY SPACE </a>
+                  <a class="nav-item nav-link" href="/partners/bookedspace" style="text-decoration: none; color: aliceblue;margin-top: 6%; padding-right: 2vw;"> BOOKED DETAILS</a>
                   {% endif %}
-                    <p class="pt-3" style="color: aliceblue;"><strong>{{ user.username }}</strong> <a style="text-decoration: none;" href="{% url 'logout' %}">Log out</a></p>
+                    <p class="nav-item nav-link" class="pt-3" style="color: aliceblue; text-decoration: none; margin-top: 2vh; padding-right: 2vw; text-transform:uppercase;"><strong>{{ user.username }}</strong> <a href="{% url 'logout' %}" style = "padding-left: 2vw; text-decoration: none; color: white;">LOG OUT </a></p>
                   {% else %}
-                    <a href="{% url 'login' %}" class="nav-item nav-link" >LOGIN</a>
-                    <a href="{% url 'signup' %}" class="nav-item nav-link" >SIGNUP</a>
+                    <a href="{% url 'login' %}" class="nav-item nav-link" style="text-decoration: none; color: aliceblue; margin-top: 6%; padding-right: 2vw;">LOGIN</a>
+                    <a href="{% url 'signup' %}" class="nav-item nav-link" style="text-decoration: none; color: aliceblue; margin-top: 6%; padding-right: 2vw;">SIGNUP</a>
                      <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="{% url 'contact' %}">CONTACT</a>
+                    <a class="nav-item nav-link" href="{% url 'contact' %}" style="text-decoration: none; color: aliceblue; margin-top: 2vh;">CONTACT</a>
                 </div>
                   {% endif %}
                 </div>

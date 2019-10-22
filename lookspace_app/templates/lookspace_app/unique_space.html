@@ -1,81 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-        <style>
-            table {
-              font-family: arial, sans-serif;
-              border-collapse: collapse;
-              width: 80%;
-              margin-left: 10%;
-            }
-
-            td, th {
-              border: 1px solid #dddddd;
-              text-align: left;
-              padding: 8px;
-            }
-
-            tr:nth-child(even) {
-              background-color: #dddddd;
-            }
-
-            </style>
-    </head>
-    <body>
-    {% extends 'lookspace_app/html/base.html' %}
-    {% block content %}
-    <div style="margin-left: 40%;">
-        <h3>All Spaces</h3>
-    </div>
-
-    <table>
-    <tr>
-        <th>Space Type</th>
-        <th>Seater</th>
-
-        <th>Time</th>
-        <th>Price Per Qty</th>
-    </tr>
-        {% for data in all_data %}
-                <tr>
-                    <td>{{data.space_type}}</td>
-                    <td>{{data.seater}}</td>
-                    <td>{{data.time}}</td>
-                    <td>{{data.price}}</td>
-                </tr>
-
-        {% endfor %}
-    </table>
-
-    <div class="available_spaces" >
-        <h3 style="margin-left: 40%;">Available Spaces</h3>
-        <table>
-            <tr>
-                <th>Space Type</th>
-                <th>Seater</th>
-                <th>Time</th>
-                <th>Price Per Qty</th>
-                <th></th>
-                <th></th>
-            </tr>
-                {% for data in all_data %}
-                        <tr>
-                            <td>{{data.space_type}}</td>
-                            <td>{{data.seater}}</td>
-                            <td>{{data.time}}</td>
-                            <td>{{data.price}}</td>
-                            <td><a href="availability/{{data.id}}"><button>Check Availability</button></a></td>
-                            <td><a href="booking/{{data.id}}"><button>BOOK NOW</button></a></td>
-                        </tr>
-
-                {% endfor %}
-            </table>
-    </div>
-
-    {% endblock %}
-    </body>
-</html>
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block header %}
+<head>
+        <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/user_dashboard.css' %}">
+</head>
+{% endblock header %}
+{% block content %}
+<body>
+		<div class="container-table">
+			<div class="wrap-table">
+				<div class="table space_table m-b-110">
+					<table data-vertable="space_table">
+						<thead>
+							<tr class="row100 head">
+								<th class="column column-head" data-column="column-head">Space Type</th>
+								<th class="column seater-column" data-column="seater-column">Seater</th>
+								<th class="column time-column" data-column="time-column">Time</th>
+								<th class="column price-column" data-column="price-column">Price Per Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+                            {% for data in all_data %}
+							<tr class="row100">
+								<td class="column column-head" data-column="column-head">{{data.space_type}}</td>
+								<td class="column seater-column" data-column="seater-column">{{data.seater}}</td>
+								<td class="column time-column" data-column="time-column">{{data.time}}</td>
+								<td class="column price-column" data-column="price-column">{{data.price}}</td>
+                            </tr>
+                            {% endfor %}
+						</tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+        <div class="container-space-table">
+                <div class="wrap-space-table">
+                    <div class="table avail-space m-b-110">
+                        <table data-vertable="avail-space">
+                            <thead>
+                                <tr class="space-row head">
+                                    <th class="space-column space-column-head" data-column="column-head">Space Type</th>
+                                    <th class="space-column space-seater-column" data-column="seater-column">Seater</th>
+                                    <th class="space-column space-time-column" data-column="time-column">Time</th>
+                                    <th class="space-column space-price-column" data-column="price-column">Price Per Quantity</th>
+                                    <th class="space-column space-availability-column" data-column="time-column">Availability</th>
+                                    <th class="space-column space-book-column" data-column="price-column">Book</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in all_data %}
+                                <tr class="space-row">
+                                    <td class="space-column space-column-head" data-column="column-head">{{data.space_type}}</td>
+                                    <td class="space-column space-seater-column" data-column="seater-column">{{data.seater}}</td>
+                                    <td class="space-column space-time-column" data-column="time-column">{{data.time}}</td>
+                                    <td class="space-column space-price-column" data-column="price-column">{{data.price}}</td>
+                                    <td class="space-column space-availability-column" data-column="price-column"><a class = "button" href="availability/{{data.id}}">CHECK AVAILABILITY</a></td>
+                                    <td class="space-column space-book-column" data-column="price-column"><a class = "button" href="booking/{{data.id}}">BOOK NOW</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+</body>
+{% endblock content %}
