@@ -20,7 +20,7 @@ class SpaceDetails(models.Model):
     space_type = models.CharField(choices=CATEGORY_CHOICES, max_length = 200, null = True, default="Other")
     seater = models.IntegerField(default=0 )
     total_quantity = models.IntegerField( default=0 )
-    time = models.TimeField(default=timezone.now)
+    time = models.CharField(max_length=64, null= True)
     price = models.IntegerField(default=0)
 
     def __str__(self):

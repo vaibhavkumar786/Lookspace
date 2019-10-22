@@ -5,36 +5,46 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
 
 </head>
-<body>
+<body class="check-availability">
 {% extends 'lookspace_app/html/base.html' %}
     {% block content %}
 
-    <form >
+<div class="availability">
+        <h3 style="color: aliceblue; text-align: center;">Check Availability</h3>
+    <div class="form-availability" >
+
+    <form>
             {% csrf_token %}
+
         <div class="user_input">
-                <label><b>Enter Start Date </b></label>
+                <label><b>Choose Start Date </b></label>
                 <input type="date" name="start_date" id="start_date">
         </div>
         <div class="user_input">
-                <label><b>Enter End Date </b></label>
+                <label><b>Choose End Date </b></label>
                 <input type="date" name="end_date" id="end_date">
         </div>
         <div class="user_input">
-                <label><b>Enter Start Date </b></label>
+                <label><b>Choose Start Date </b></label>
                 <input type="time" name="start_time" id="start_time">
         </div>
         <div class="user_input">
-                <label><b>Enter End Date </b></label>
+                <label><b>Choose End Date </b></label>
                 <input type="time" name="end_time" id="end_time">
         </div>
-        <input type="submit" >
+        <input type="submit" class="">
       </form>
-       <h3>Comments</h3>
-        {{comment}}
-    {% endblock %}
+
+</div>
+<div class="result">
+        <p>Results :  {{comment}}</p>
+
+</div>
+</div>
+{% endblock %}
+
 </body>
+
 </html>
