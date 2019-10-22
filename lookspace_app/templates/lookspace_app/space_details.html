@@ -1,0 +1,44 @@
+
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block header %}
+<head>
+        <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/user_dashboard.css' %}">
+</head>
+{% endblock header %}
+{% block content %}
+<body>
+    <div class="container-space-table">
+        <div class="wrap-space-table">
+          <div class="table avail-space m-b-110">
+            <table data-vertable="avail-space">
+              <thead>
+                <tr class="space-row head">
+                    <th class="space-column space-column-head" data-column="column-head">Space Type</th>
+                    <th class="space-column space-seater-column" data-column="seater-column">Seater</th>
+                    <th class="space-column space-quantity-column" data-column="price-column">Total Quantity</th>
+                    <th class="space-column space-time-column" data-column="time-column">Time</th>
+                    <th class="space-column space-quantity-column" data-column="total-quantity-column">Price Per Quantity</th>
+                    <th class="space-column space-edit-column" data-column="time-column">Edit</th>
+                    <th class="space-column space-delete-column" data-column="price-column">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for data in all_data %}
+                  <tr class="space-row">
+                      <td class="space-column space-column-head" data-column="column-head">{{data.space_type}}</td>
+                      <td class="space-column space-seater-column" data-column="seater-column">{{data.seater}}</td>
+                      <td class="space-column space-quantity-column" data-column="quantity-column">{{data.total_quantity}}</td>
+                      <td class="space-column space-time-column" data-column="time-column">{{data.time}}</td>
+                      <td class="space-column space-price-column" data-column="price-column">{{data.price}}</td>
+                      <td class="space-column space-availability-column" data-column="price-column"><a class = "button" href="edit/{{data.id}}">EDIT</a></td>
+                      <td class="space-column space-book-column" data-column="price-column"><a class = "button" href="delete/{{data.id}}">DELETE</a></td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</body>
+{% endblock content %}

@@ -1,0 +1,72 @@
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block header %}
+<head>
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/partnerform_style.css' %}">
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/utils.css' %}">
+</head>
+{% endblock header %}
+<body>
+    {% block content %}
+    <div class="alert alert-danger" role="alert">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<div class="limiter">
+<div class="container-login100">
+	<div class="wrap-login100">
+	<div class="login100-form-title" style="background-image: url(/static/lookspace_app/images/partner3.jpg);">
+	   <span class="login100-form-title-1">
+                Book Spaces
+	   </span>
+	</div>
+        <form action="" class="login100-form validate-form" method="GET">
+            {% csrf_token %}
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Space type is required">
+                <span class="label-input100">Space Type:</span>
+                {{ all_data.space_type }}
+
+            </div>
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Seater is required">
+                <span class="label-input100">Seater:</span>
+                {{ all_data.seater }}
+                <span class="focus-input100"></span>
+            </div>
+        </form>
+        <form action="" class="login100-form validate-form book-space " method="POST">
+            {% csrf_token %}
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Start Date is required">
+            <span class="label-input100">Start Date</span>
+            <input class="input100" type="date" name="start_date" id="start_date" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26" data-validate="End Date is required">
+            <span class="label-input100">End Date</span>
+            <input class="input100" type="date" name="end_date" id="end_date" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Time is required">
+            <span class="label-input100">Start Time</span>
+            <input class="input100" type="time" name="start_time" id="start_time" required>
+            </div>
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Time is required">
+            <span class="label-input100">End Time</span>
+            <input class="input100" type="time" name="end_time" id="end_time" required>
+            </div>
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn">
+            Book
+	    </button>
+        </div>
+        </form>
+	</div>
+        </div>
+    </div>
+</body>
+{% endblock content  %}

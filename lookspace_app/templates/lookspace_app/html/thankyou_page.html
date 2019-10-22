@@ -1,0 +1,21 @@
+{% extends 'lookspace_app/html/base.html' %}
+{% load static %}
+{% block header %}
+<head>
+    <meta http-equiv="Refresh" content="2; url=/" />
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/userform_style.css' %}">
+    <link rel = "stylesheet" href="{% static '/lookspace_app/css/thank_style.css' %}">
+</head>
+{% endblock header %}
+{% block content %}
+<div class="header-custom email-signup-thankyou">
+    <div class="content">
+      <div class="left-hole"></div>
+      <div class="right-hole"></div>
+      <div class="main-content">
+        <h1 class = "title">Welcome ! Thank You for visiting.</h1>
+        <p class = "content">We will get back to you soon. It means a lot to us, just like you do! We really appreciate you giving us a moment of your time.</p>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'lookspace_app/html/base.html'%}
+{% load static %}
+{% block header %}
+<head>
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/partnerform_style.css' %}">
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/utils.css' %}">
+</head>
+{% endblock header %}
+{% block content%}
+<body>
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url(/static/lookspace_app/images/partner3.jpg);">
+					<span class="login100-form-title-1">
+                        Edit Space
+					</span>
+				</div>
+				<form action="" class="login100-form validate-form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Space type is required">
+						<span class="label-input100">Space type</span>
+						<input class="input100" type="text" name="space_type" placeholder="Enter Space Type" value="{{ all_data.space_type }}"required>
+						<span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Seater is required">
+						<span class="label-input100">Seater</span>
+						<input class="input100" type="text" name="seater" value="{{ all_data.seater }}" placeholder="Enter Seater" required>
+						<span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Quantity is required">
+						<span class="label-input100">Quantity</span>
+						<input class="input100" type="text" name="total_quantity" value="{{ all_data.total_quantity }}" placeholder="Enter your Quantity" required>
+						<span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Time is required">
+                        <span class="label-input100">Time</span>
+                        <input class="input100" type="time" name="time" value="{{ all_data.time }}" required>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Quantity is required">
+						<span class="label-input100">Price Per Quantity</span>
+						<input class="input100" type="text" name="price" value="{{ all_data.price }}" placeholder="Enter Per Seat Price" required>
+						<span class="focus-input100"></span>
+                    </div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Edit
+						</button>
+                    </div>
+				</form>
+			</div>
+		</div>
+    </div>
+</body>
+{% endblock content %}

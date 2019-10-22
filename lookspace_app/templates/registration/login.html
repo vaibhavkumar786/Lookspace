@@ -1,0 +1,41 @@
+{% extends 'lookspace_app/html/base.html' %}
+{% load static %}
+{% block header %}
+<head>
+    <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/userform_style.css' %}">
+</head>
+{% endblock header %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="/static/lookspace_app/images/signin-image.jpg" alt="sing up image"></figure>
+                <a href="{% url 'signup' %}" class="signup-image-link">Create an account</a>
+            </div>
+            <div class="signin-form">
+                <h2 class="form-title">Sign In</h2>
+                <form method="post" novalidate>
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}">
+
+                        <div class="form-group">
+                            <label for="your_name"><i class="fa fa-user" aria-hidden="true" id = "icon1"></i></label>
+                            <input type="text" name="username" placeholder="username" required="" id="id_username" class="textinput textInput form-control" autofocus="">
+                        </div>
+                        <div class="form-group">
+                            <label for="your_pass"><i class="fa fa-lock" id = "icon1"></i></label>
+                            <input type="password" placeholder="Password" name="password" required="" id="id_password" class="textinput textInput form-control"></div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                        </div>
+                      </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
