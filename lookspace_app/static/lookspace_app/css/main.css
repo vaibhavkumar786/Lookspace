@@ -796,7 +796,7 @@ p, h1 {
   }
 .team-article{
   height: 80%;
-  border-left: 1px groove grey;
+  /* border-left: 1px groove grey; */
 }
 .team-image{
   border-radius: 10%;
@@ -823,7 +823,7 @@ p, h1 {
   font-variant: normal;
   text-transform: capitalize;
   color: grey;
-  border-bottom: 1px groove;
+  /* border-bottom: 1px groove; */
 }
 
 @media screen and (max-width: 768px)
