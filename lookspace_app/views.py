@@ -158,6 +158,7 @@ def all_unique_space(request):
     all_data = SpaceDetails.objects.all()
     return render(request, 'lookspace_app/unique_space.html', {'all_data':all_data})
 
+#check availability of tickets
 def check_spaces(booked_data,first_date,second_date, first_time, second_time):
     check = False
     for dates in booked_data:
@@ -217,6 +218,10 @@ def all_available_spaces(request, id):
         end_time = request.POST.get("end_time")
 
         val = check_spaces(booked_data,start_date,end_date, start_time, end_time)
+        '''
+        calculating price
+        '''
+
         days = 1
         if datetime.strptime(end_date, '%Y-%m-%d').date() != datetime.strptime(start_date, '%Y-%m-%d').date():
             diff_date = datetime.strptime(end_date, '%Y-%m-%d').date() - datetime.strptime(start_date, '%Y-%m-%d').date()
@@ -232,19 +237,16 @@ def all_available_spaces(request, id):
         diff_time_hrs = int(diff[0])
         diff_time_min = int(diff[1])
 
-        print(diff_time_hrs,diff_time_min, "diffffffffffffffffffff-----------------------" )
         total_price = (price_per_hour + diff_time_min/60 )*price_per_hour*days
         print(total_price)
+
         if val == False:
             book_space.save()
-        else:
-            print("space is not available")
-            messages.error(request, 'Space is not available.')
 
-        total_cost=10
-        order_id = Checksum.__id_generator__()
-        print(order_id)
-        param_dict = {
+            total_cost=total_price
+            order_id = Checksum.__id_generator__()
+            print(order_id)
+            param_dict = {
             'MID': Test_Merchant_ID,
             'ORDER_ID': order_id,
             'TXN_AMOUNT': str(total_cost),
@@ -253,9 +255,13 @@ def all_available_spaces(request, id):
             'WEBSITE': 'WEBSTAGING',
             'CHANNEL_ID': 'WEB',
             'CALLBACK_URL':'http://127.0.0.1:8000/handlerequest'
-        }
-        param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, Test_Merchant_Key)
-        return render(request, 'lookspace_app/paytm.html', {'param_dict': param_dict})
+            }
+            param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, Test_Merchant_Key)
+            return render(request, 'lookspace_app/paytm.html', {'param_dict': param_dict})
+
+        else:
+            print("space is not available")
+            messages.error(request, 'Space is not available.')
 
     return render(request, 'lookspace_app/book_space.html', {'all_data':all_data} )
 
@@ -264,7 +270,6 @@ def handlerequest(request):
 
    form = request.POST
    response_dict = {}
-   print("hello-----------")
    for i in form.keys():
        response_dict[i] = form[i]
        if i == 'CHECKSUMHASH':
@@ -272,14 +277,11 @@ def handlerequest(request):
    verify = Checksum.verify_checksum(response_dict, Test_Merchant_Key, checksum)
    if verify:
        if response_dict['RESPCODE'] == '01':
-
            print("ok")
        else:
            print("not ok")
            print('order was not successful because' + response_dict['RESPMSG'])
    return render(request, 'lookspace_app/paymentstatus.html', {'response': response_dict})
-
-
 
 
 @login_required
@@ -313,63 +315,21 @@ def partner_space_booked_details(request):
 @login_required
 def check_availability_spaces(request, id):
     booked_data = BookedSeats.objects.filter(space__id = id)
-    first_date=request.GET.get("start_date")
-    second_date=request.GET.get("end_date")
-    first_time=request.GET.get("start_time")
-    second_time=request.GET.get("end_time")
 
-    if first_date == None:
-        date_today = date.today()
-        first_date = date_today
-        second_date = date_today
-        first_time = time.localtime()
-        second_time = time.localtime()
+    if request.method == "POST":
+        start_date=request.POST.get("start_date")
+        end_date=request.POST.get("end_date")
+        start_time=request.POST.get("start_time")
+        end_time=request.POST.get("end_time")
 
-        first_time = datetime.fromtimestamp(mktime(first_time)).time()
-        second_time = datetime.fromtimestamp(mktime(second_time)).time()
-
-    comment = ""
-    check = False
-    for dates in booked_data:
-        st_date= dates.start_date
-        en_date = dates.end_date
-        st_time = dates.start_time
-        en_time = dates.end_time
-
-        if type(first_date) == str :
-            first_date = datetime.strptime(first_date, '%Y-%m-%d').date()
-            second_date = datetime.strptime(second_date, '%Y-%m-%d').date()
-
-        if type(first_time) == str:
-            first_time = time.strptime(first_time, "%H:%M")
-            second_time = time.strptime(second_time, "%H:%M")
-            first_time = datetime.fromtimestamp(mktime(first_time)).time()
-            second_time = datetime.fromtimestamp(mktime(second_time)).time()
-
-        if st_date <= first_date <= en_date:
-            check =True
-        elif st_date <= second_date <= en_date:
-            check =True
-        else:
-            pass
-
-        if check == True :
-            if st_time <= first_time <= en_time:
-                check =True
-            elif st_time <= second_time <= en_time:
-                check =True
-            else:
-                check = False
+        check = check_spaces(booked_data,start_date,end_date, start_time, end_time)
 
         if check == True:
-            break
+            messages.error(request, 'Space is not available.')
+        else:
+            messages.success(request, 'Your date is available.')
 
-    if check == True:
-        comment = "Sorry, Please choose another date and time"
-    else:
-        comment = "Your date is available"
-
-    return render(request, 'lookspace_app/availabilities.html', {'booked_data':booked_data, 'comment':comment} )
+    return render(request, 'lookspace_app/availabilities.html', {'booked_data':booked_data} )
 
 
 

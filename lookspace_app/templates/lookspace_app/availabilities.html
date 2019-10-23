@@ -43,7 +43,15 @@
         </div>
         </form>
         <div class="result">
-                <p style = "padding: 3vw 3vw; font-size: 1.5em; color: black; background-color: whitesmoke; ">Results :  {{comment}}</p>
+                <p style = "padding: 3vw 3vw; font-size: 1.5em; color: black; background-color: whitesmoke; ">Results :</p>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
         </div>
 	</div>
         </div>
