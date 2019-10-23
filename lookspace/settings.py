@@ -148,3 +148,6 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS') is not None
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
+Test_Merchant_ID = config('Test_Merchant_ID')
+
+

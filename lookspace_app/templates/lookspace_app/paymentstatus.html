@@ -1,0 +1,18 @@
+{% block body %}
+<div class="container">
+
+    <div class="payment-details" style="background-color: azure; margin-right: 25%; padding: 5%; margin-left: 25%; margin-top: 10%;" >
+        <p>TXNAMOUNT: {{response.TXNAMOUNT}}</p>
+        <p>TXNID: {{response.TXNID}}</p>
+        <p>TXNDATE: {{response.TXNDATE}}</p>
+        <p>BANKNAME: {{response.BANKNAME}}</p>
+        <p>STATUS: {{response.STATUS}}</p>
+        <a href="customers">BACK</a>
+    </div>
+
+</div>
+{% endblock %}
+{% block js %}
+<script>
+</script>
+{% endblock %}

@@ -6,11 +6,10 @@
     <link rel = "stylesheet" type="text/css" href="{% static '/lookspace_app/css/utils.css' %}">
 </head>
 {% endblock header %}
-{% block content%}
+
 <body>
-{% extends 'lookspace_app/html/base.html' %}
-    {% block content %}
-    <div class="alert alert-danger" role="alert">
+{% block content%}
+    <div class="messages" role="alert">
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -71,4 +70,4 @@
         </div>
     </div>
 </body>
-{% endblock content  %}
+{% endblock  %}

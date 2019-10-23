@@ -14,6 +14,7 @@ urlpatterns = [
         path('booking/<int:id>', views.all_available_spaces, name='booking'),
         path('availability/<int:id>', views.check_availability_spaces, name='availability'),
         path('mybookings', views.all_user_booking_details, name='my_bookings'),
+        # path('checkout', views.all_user_booking_details, name='checkout'),
 
     ], 'lookspace_app'), namespace='customers')),
 
@@ -27,7 +28,9 @@ urlpatterns = [
 
     ], 'lookspace_app'), namespace='partners')),
 
+
     path('', views.index, name = "index"),
+    path('handlerequest', views.handlerequest, name = "handlerequest"),
     path('thankyoupage/', views.thank_you, name = "thank_you"),
     # path('user_signin/', views.user_signin, name = "user_signin"),
     # path('partner_signup/', views.partner_signup, name = "partner_signup"),
