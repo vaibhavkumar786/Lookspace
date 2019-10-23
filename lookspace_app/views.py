@@ -16,6 +16,14 @@ import  time
 from datetime import datetime, date
 from time import mktime
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+from paytm import Checksum
+from decouple import config
+import random
+
+
+Test_Merchant_ID = config('Test_Merchant_ID')
+Test_Merchant_Key = config('Test_Merchant_Key')
 # Create your views here..
 
 def home_page(request):
@@ -188,8 +196,6 @@ def check_spaces(booked_data,first_date,second_date, first_time, second_time):
 
     return check
 
-
-
 @login_required
 def all_available_spaces(request, id):
     '''
@@ -235,7 +241,46 @@ def all_available_spaces(request, id):
             print("space is not available")
             messages.error(request, 'Space is not available.')
 
+        total_cost=10
+        order_id = Checksum.__id_generator__()
+        print(order_id)
+        param_dict = {
+            'MID': Test_Merchant_ID,
+            'ORDER_ID': order_id,
+            'TXN_AMOUNT': str(total_cost),
+            'CUST_ID': 'shashir0508@gmail.com',
+            'INDUSTRY_TYPE_ID': 'Retail',
+            'WEBSITE': 'WEBSTAGING',
+            'CHANNEL_ID': 'WEB',
+            'CALLBACK_URL':'http://127.0.0.1:8000/handlerequest'
+        }
+        param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, Test_Merchant_Key)
+        return render(request, 'lookspace_app/paytm.html', {'param_dict': param_dict})
+
     return render(request, 'lookspace_app/book_space.html', {'all_data':all_data} )
+
+@csrf_exempt
+def handlerequest(request):
+
+   form = request.POST
+   response_dict = {}
+   print("hello-----------")
+   for i in form.keys():
+       response_dict[i] = form[i]
+       if i == 'CHECKSUMHASH':
+           checksum = form[i]
+   verify = Checksum.verify_checksum(response_dict, Test_Merchant_Key, checksum)
+   if verify:
+       if response_dict['RESPCODE'] == '01':
+
+           print("ok")
+       else:
+           print("not ok")
+           print('order was not successful because' + response_dict['RESPMSG'])
+   return render(request, 'lookspace_app/paymentstatus.html', {'response': response_dict})
+
+
+
 
 @login_required
 def all_user_booking_details(request):

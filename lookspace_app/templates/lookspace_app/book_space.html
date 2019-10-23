@@ -7,17 +7,7 @@
 </head>
 {% endblock header %}
 <body>
-    {% block content %}
-    <div class="alert alert-danger" role="alert">
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
-            {% endfor %}
-        </ul>
-    {% endif %}
-</div>
-
+{% block content%}
 <div class="limiter">
 <div class="container-login100">
 	<div class="wrap-login100">
@@ -69,4 +59,4 @@
         </div>
     </div>
 </body>
-{% endblock content  %}
+{% endblock  %}
